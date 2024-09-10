@@ -1,22 +1,50 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { GoogleSheetService } from './google-sheet/google-sheet.service';
+import { WaterFlowService } from './water-flow/water-flow.service';
 
 describe('AppController', () => {
   let appController: AppController;
+  let googleSheetService: GoogleSheetService;
+  let waterFlowService: WaterFlowService;
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        {
+          provide: GoogleSheetService,
+          useValue: {
+            getTabs: jest.fn().mockResolvedValue(['Sheet1']),
+            getGridData: jest.fn().mockResolvedValue([[1, 2], [3, 4]]),
+          },
+        },
+        {
+          provide: WaterFlowService,
+          useValue: {
+            calculateWaterFlow: jest.fn().mockReturnValue({
+              count: 2,
+              coordinates: [[0, 1], [1, 2]],
+              grid: [[1, 2], [3, 4]],
+            }),
+          },
+        },
+      ],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    appController = module.get<AppController>(AppController);
+    googleSheetService = module.get<GoogleSheetService>(GoogleSheetService);
+    waterFlowService = module.get<WaterFlowService>(WaterFlowService);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+  it('should return spreadsheet tabs', async () => {
+    const tabs = await appController.getTabs();
+    expect(tabs).toEqual(['Sheet1']);
+  });
+
+  it('should calculate water flow based on the grid', async () => {
+    const result = await appController.calculateFlow({ tab: 'Sheet1' });
+    expect(result.count).toBe(2);
+    expect(result.coordinates).toEqual([[0, 1], [1, 2]]);
   });
 });
