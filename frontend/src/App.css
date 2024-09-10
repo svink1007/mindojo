@@ -1,0 +1,97 @@
+/* src/styles/app.css */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.header {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.header {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap; /* Enables wrapping of tabs on smaller screens */
+  overflow-x: auto; /* Enables horizontal scrolling if necessary */
+  gap: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: none;
+  background-color: #e7e7e7;
+  color: #000;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.tab.active {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 5px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.grid-cell {
+  padding: 10px;
+  background-color: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.grid-cell.water-flow {
+  background-color: #4CAF50;
+}
+
+.error-message {
+  color: #ff0000;
+  text-align: center;
+  margin-top: 20px;
+}
