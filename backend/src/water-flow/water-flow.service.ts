@@ -1,8 +1,18 @@
 import { Injectable } from '@nestjs/common';
 
+export interface Grid {
+  rows: number[][];
+}
+
+export interface WaterFlowResult {
+  count: number;
+  coordinates: number[][];
+  grid: number[][];
+}
+
 @Injectable()
 export class WaterFlowService {
-  calculateWaterFlow(grid: number[][]): { count: number; coordinates: number[][]; grid: number[][] } {
+  calculateWaterFlow(grid: number[][]): WaterFlowResult {
     const rows = grid.length;
     const cols = grid[0].length;
 
